@@ -24,6 +24,8 @@ public class CauServlet extends HttpServlet {
     private CauDao cauDao;
     private TinhDao tinhDao;
     private HuyenDao huyenDao;
+    private int idcu;
+    private int idTinhCu;
     public CauServlet() {
         this.chuDauTuDao=new ChuDauTuDao();
         this.donViThiCongDao = new DonViThiCongDao();
@@ -36,6 +38,8 @@ public class CauServlet extends HttpServlet {
         this.cauDao=new CauDao();
         this.tinhDao=new TinhDao();
         this.huyenDao=new HuyenDao();
+        this.idcu= -1;
+        this.idTinhCu= -1;
     }
 
     @Override
@@ -45,6 +49,8 @@ public class CauServlet extends HttpServlet {
         String uri = request.getRequestURI();
         if (uri.contains("QuanLyCau")) {
             this.create(request, response);
+        }else if (uri.contains("editCau")) {
+            this.edit(request, response);
         }
     }
 
@@ -68,12 +74,13 @@ public class CauServlet extends HttpServlet {
     }
 
     protected void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        allList(request, response);
+        this.allList(request, response);
         request.setAttribute("view", "/views/admin/cau/create.jsp");
         request.setAttribute("view1", "/views/admin/cau/table.jsp");
         request.getRequestDispatcher("/views/admin/admin.jsp").forward(request, response);
     }
     protected void allList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session=request.getSession();
         List<ChuDauTu> dschudautu=this.chuDauTuDao.all();
         request.setAttribute("dschudautu",dschudautu);
         List<DonViThiCong> dsdonvithicong=this.donViThiCongDao.all();
@@ -84,20 +91,49 @@ public class CauServlet extends HttpServlet {
         request.setAttribute("dsdonviquanly",dsdonviquanly);
         List<QuocLo> dsquoclo=this.quocLoDao.all();
         request.setAttribute("dsquoclo",dsquoclo);
-        List<ViTriXa> dsxa=this.xaDao.all();
-        request.setAttribute("dsxa",dsxa);
         List<DonViGiamSat> dsdonvigiamsat=this.donViGiamSatDao.all();
         request.setAttribute("dsdonvigiamsat",dsdonvigiamsat);
         List<Tinh> dstinh=this.tinhDao.all();
         request.setAttribute("dstinh",dstinh);
         List<Huyen> dshuyen=this.huyenDao.all();
         request.setAttribute("dshuyen",dshuyen);
+        String idtinh = request.getParameter("idTinh");
+        if (idtinh!=null){
+            int idti = Integer.parseInt(idtinh);
+            this.idTinhCu=idti;
+            dshuyen=this.tinhDao.findByID(idti).getListH();
+            Tinh t = this.tinhDao.findByID(idti);
+            request.setAttribute("dshuyen",dshuyen);
+            request.setAttribute("t",t);
+        }else {
+            if (this.idTinhCu!=-1){
+                dshuyen=this.tinhDao.findByID(this.idTinhCu).getListH();
+                Tinh t = this.tinhDao.findByID(this.idTinhCu);
+                request.setAttribute("dshuyen",dshuyen);
+                request.setAttribute("t",t);
+            }
+        }
+        List<ViTriXa> dsxa=this.xaDao.all();
+        String idH = request.getParameter("idH");
+        if (idH!=null){
+            int idHu = Integer.parseInt(idH);
+            dsxa=this.huyenDao.findByID(idHu).getListX();
+            Huyen h = this.huyenDao.findByID(idHu);
+            request.setAttribute("dsxa",dsxa);
+            request.setAttribute("h",h);
+        }
+        request.setAttribute("dsxa",dsxa);
         List<TinhTrang> dstinhtrang=this.tinhTrangCauDao.all();
         request.setAttribute("dstinhtrang",dstinhtrang);
-        List<Cau> list=this.cauDao.all();
+        List<Cau> list =new ArrayList<>();
+        if ( session.getAttribute("admin")!=null){
+            list=this.cauDao.all();
+        } else if (session.getAttribute("user") != null){
+            DonViQuanLy donViQuanLy= (DonViQuanLy) session.getAttribute("user");
+           list=this.cauDao.findByIDChiCuc(donViQuanLy.getId());
+        }
         request.setAttribute("list", list);
     }
-
     protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         int idChu= Integer.parseInt(request.getParameter("idChu"));
@@ -163,7 +199,11 @@ public class CauServlet extends HttpServlet {
 
     protected void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String s = request.getParameter("id");
-        int id = Integer.parseInt(s);
+        int id = idcu;
+        if (s!=null){
+            id = Integer.parseInt(s);
+            this.idcu=id;
+        }
         Cau cau = this.cauDao.findByID(id);
         request.setAttribute("cau", cau);
         this.allList(request, response);
@@ -173,6 +213,7 @@ public class CauServlet extends HttpServlet {
     }
     protected void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.allList(request, response);
+
         int id= Integer.parseInt(request.getParameter("id"));
         Cau cau =this.cauDao.findByID(id);
         request.setAttribute("cau",cau);

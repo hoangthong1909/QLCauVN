@@ -1,4 +1,4 @@
-package controllers.admin;
+package controllers.user;
 
 import Dao.ChuDauTuDao;
 import entitys.ChuDauTu;

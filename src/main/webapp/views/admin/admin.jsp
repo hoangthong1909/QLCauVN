@@ -43,144 +43,73 @@
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-success sidebar sidebar-dark accordion" id="accordionSidebar">
-
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/User">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">Admin</div>
         </a>
-
-        <!-- Divider -->
-<%--        <c:if test="${sessionScope.user.isAdmin==1}">--%>
-        <hr class="sidebar-divider my-0">
-
         <!-- Nav Item - Dashboard -->
+        <c:if test="${!empty sessionScope.admin}">
         <li class="nav-item active">
-            <a class="nav-link" href="/User">
+            <a class="nav-link" href="/Admin">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Tài Khoản</span></a>
         </li>
-
         <!-- Divider -->
         <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Tòa Nhà
-        </div>
-
+        </c:if>
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="/Building">
+            <a class="nav-link" href="/QuanLyCau">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Tòa Nhà</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Floor">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Tầng</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Room">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Căn Hộ</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Hợp Đồng
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="/Contract">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Hợp Đồng</span></a>
+                <span>Cầu</span></a>
         </li>
         <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Khách Hàng
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-
-        <!-- Nav Item - Charts -->
+        <c:if test="${!empty sessionScope.admin}">
         <li class="nav-item">
-            <a class="nav-link" href="/Customer">
+            <a class="nav-link" href="/DonViQuanLy">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Khách Hàng</span></a>
+                <span>Đơn Vị Quản Lý</span></a>
         </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                Hóa Đơn , Chi Phí Hàng Tháng
-            </div>
+        <hr class="sidebar-divider">
+        </c:if>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="/Room">--%>
+<%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+<%--                <span>Đơn Vị Thiết Kế</span></a>--%>
+<%--        </li>--%>
+<%--        <hr class="sidebar-divider">--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="/Room">--%>
+<%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+<%--                <span>Đơn Vị Giám Sát</span></a>--%>
+<%--        </li>--%>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+<%--        <hr class="sidebar-divider">--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="/Room">--%>
+<%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+<%--                <span>Đơn Vị Thi Công </span></a>--%>
+<%--        </li>--%>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Receipt">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Hóa Đơn </span></a>
-            </li>
+<%--        <hr class="sidebar-divider">--%>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/ChuDauTu">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Chủ Đầu Tư</span></a>
+        </li>
+<%--        <hr class="sidebar-divider">--%>
+<%--        <c:if test="${!empty sessionScope.admin}">--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="/QuocLo">--%>
+<%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+<%--                <span>Quốc Lộ</span></a>--%>
+<%--        </li>--%>
+<%--        <hr class="sidebar-divider">--%>
 <%--        </c:if>--%>
-<%--        <c:if test="${sessionScope.user.isAdmin==0}">--%>
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Hợp Đồng
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="/Contract">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Hợp Đồng</span></a>
-        </li>
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Khách Hàng
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="/Customer">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Khách Hàng</span></a>
-        </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                Hóa Đơn , Chi Phí Hàng Tháng
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Receipt">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Hóa Đơn </span></a>
-            </li>
-            <hr class="sidebar-divider">
-<%--        </c:if>--%>
-
-
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -198,12 +127,6 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-
                 <!-- Topbar Search -->
 
                 <!-- Topbar Navbar -->
@@ -219,26 +142,15 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<%--                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${user.name}</span>--%>
+<%--                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${admin.name}</span>--%>
                             <img class="img-profile rounded-circle"
-<%--                                 src="/images/avatar/${user.avatar}">--%>
+                                 src="/images/avatar/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
-                            <div class="dropdown-divider"></div>
+
+<%--                            <div class="dropdown-divider"></div>--%>
                             <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Đăng Xuất

@@ -12,6 +12,8 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4 offset-5">
     <h1 class="h3 mb-0 text-gray-800">Quản Lý Cầu</h1>
 </div>
+<c:if test="${!empty sessionScope.admin}">
+
 <form class=" row mt-3 ms-0 pe-0" action="storeCau" method="post" >
     <div class="mb-3 col-12">
         <label class="form-label fw-bold">Tên Cầu</label>
@@ -23,7 +25,7 @@
         <select class="form-select" name="idQuanLy" >
             <c:forEach items="${ dsdonviquanly }" var="ql">
                 <option  value="${ ql.id }">
-                        ${ ql.tenDonVi}
+                        ${ ql.name}
                 </option>
             </c:forEach>
         </select>
@@ -44,5 +46,5 @@
     </div>
 </form>
 <br>
-
+</c:if>
 

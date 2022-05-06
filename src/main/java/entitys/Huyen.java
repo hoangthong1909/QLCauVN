@@ -1,6 +1,7 @@
 package entitys;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Huyen {
@@ -15,6 +16,8 @@ public class Huyen {
     @ManyToOne
     @JoinColumn(name = "idTinh")
     private Tinh idTinh;
+    @OneToMany(mappedBy = "idHuyen")
+    private List<ViTriXa> listX;
 
     public Integer getId() {
         return id;
@@ -40,4 +43,11 @@ public class Huyen {
         this.idTinh = idTinh;
     }
 
+    public List<ViTriXa> getListX() {
+        return listX;
+    }
+
+    public void setListX(List<ViTriXa> listX) {
+        this.listX = listX;
+    }
 }

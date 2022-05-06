@@ -50,11 +50,11 @@ public class CauDao {
         Cau entity=this.em.find(Cau.class,id);
         return entity;
     }
-//    public List<Cau> findByIDBuilding(int id){
-//        String jpql="SELECT obj from Cau obj where obj.idFloor.id= :id AND obj.status=true ";
-//        TypedQuery<RoomEntity> query =this.em.createQuery(jpql,RoomEntity.class);
-//        query.setParameter("id",id);
-//        List<RoomEntity> list=query.getResultList();
-//        return list;
-//    }
+    public List<Cau> findByIDChiCuc(int id){
+        String jpql="SELECT obj from Cau obj where obj.idDonViQuanLy.id= :id AND obj.trangThai=1 ";
+        TypedQuery<Cau> query =this.em.createQuery(jpql,Cau.class);
+        query.setParameter("id",id);
+        List<Cau> list=query.getResultList();
+        return list;
+    }
 }

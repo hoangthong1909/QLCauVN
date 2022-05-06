@@ -7,17 +7,30 @@
     <h1 class="h3 mb-0 text-gray-800">Quản Lý Cầu</h1>
 </div>
 <form class=" row mt-3 ms-0 pe-0" action="updateCau?id=${cau.id}" method="post" >
+    <c:if test="${sessionScope.admin !=null}">
     <div class="mb-3 col-6">
         <label class="form-label fw-bold">Tên Cầu</label>
         <input type="text" class="form-control" name="tenCau" value="${cau.tenCau}">
     </div>
+    </c:if>
+    <c:if test="${sessionScope.user !=null}">
+        <div class="mb-3 col-6">
+            <label class="form-label fw-bold">Tên Cầu : <span style="color: red">${cau.tenCau}</span> </label>
+            <input type="hidden" d class="form-control" name="tenCau" value="${cau.tenCau}">
+        </div>
+        <div class="mb-3 col-6">
+            <label class="form-label fw-bold">Quốc Lộ : <span style="color: red">${cau.idQuocLo.tenQuocLo}</span></label>
+            <input type="hidden" class="form-control" name="idQL" value="${cau.idQuocLo.id}">
+        </div>
+        <input type="hidden" class="form-control" name="idQuanLy" value="${cau.idDonViQuanLy.id}">
+    </c:if>
     <div class="mb-3 col-6">
         <label class="form-label fw-bold">Ngày Xây Dụng </label>
         <input type="date" class="form-control" name="namXD" value="${cau.namXD}">
     </div>
     <div class="mb-3 col-6">
         <label class="form-label fw-bold">Ngày Hoàn Thành</label>
-        <input type="date" class="form-control" name="namHT" value="${cau.tenCau}">
+        <input type="date" class="form-control" name="namHT" value="${cau.namHT}">
     </div>
     <div class="mb-3 col-6">
         <label class="form-label fw-bold">Ngày Đưa Vào Khai Thác</label>
@@ -71,22 +84,23 @@
             </c:forEach>
         </select>
     </div>
-
+<c:if test="${sessionScope.admin !=null}">
     <div class="mb-3 col-6">
         <label class="form-label fw-bold">Đơn Vị Quản Lý</label>
         <select  class="form-select" name="idQuanLy" >
             <c:forEach  items="${ dsdonviquanly }" var="ql">
                 <option ${cau.idDonViQuanLy.id==ql.id ? "selected":""} value="${ ql.id }">
-                    ${ ql.tenDonVi}
+                    ${ ql.name}
                 </option>
             </c:forEach>
         </select>
     </div>
+</c:if>
     <div class="mb-3 col-2">
         <label class="form-label fw-bold">Tỉnh</label>
-        <select  class="form-select" name="id_tinh" >
+        <select  class="form-select" name="id_tinh" onchange="javascript:handleSelect(this)" >
             <c:forEach  items="${ dstinh }" var="tinh">
-                <option ${cau.idViTri.idHuyen.idTinh.id==tinh.id ? "selected":""} value="${ tinh.id }">
+                <option ${cau.idViTri.idHuyen.idTinh.id==tinh.id ? "selected":""} ${t.id==tinh.id ? "selected":""} value="${ tinh.id }">
                     ${ tinh.tenTinh}
                 </option>
             </c:forEach>
@@ -94,9 +108,9 @@
     </div>
     <div class="mb-3 col-2">
         <label class="form-label fw-bold">Huyện</label>
-        <select  class="form-select" name="id_huyen" >
+        <select  class="form-select" name="id_huyen" onchange="javascript:handleSelect1(this)">
             <c:forEach  items="${ dshuyen }" var="huyen">
-                <option ${cau.idViTri.idHuyen.id==huyen.id ? "selected":""} value="${ huyen.id }">
+                <option ${cau.idViTri.idHuyen.id==huyen.id ? "selected":""} ${h.id==huyen.id ? "selected":""} value="${ huyen.id }">
                         ${ huyen.tenHuyen}
                 </option>
             </c:forEach>
@@ -112,7 +126,8 @@
             </c:forEach>
         </select>
     </div>
-    <div class="mb-3 col-6">
+<c:if test="${sessionScope.admin !=null}">
+<div class="mb-3 col-6">
         <label class="form-label fw-bold">Quốc Lộ</label>
         <select class="form-select" name="idQL" >
             <c:forEach items="${ dsquoclo }" var="quoclo">
@@ -122,6 +137,7 @@
             </c:forEach>
         </select>
     </div>
+</c:if>
     <div class="mb-3 col-6">
         <label class="form-label fw-bold">Tình Trạng Cầu</label>
         <select class="form-select" name="id_tinhtrang" >
@@ -140,5 +156,14 @@
     </div>
 </form>
 <br>
-
+<script type="text/javascript">
+    function handleSelect(elm)
+    {
+        window.location = "/editCau?idTinh="+elm.value;
+    }
+    function handleSelect1(elm)
+    {
+        window.location = "/editCau?idH="+elm.value;
+    }
+</script>
 

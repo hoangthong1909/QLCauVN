@@ -14,9 +14,8 @@
 </div>
 <div class="row">
     <div class="col-2 offset-1"></div>
-<div class="pull-right offset-10 mb-1">
+<div class="pull-right offset-11 pe-0 mb-1">
     <a class="btn btn-primary" href="/QuanLyCau">Trở Về</a>
-    <a class="btn btn-primary" href="/QuanLyCau">Xuat Excel</a>
 </div>
 </div>
 <table class="table table-success table-striped table-responsive-sm">
@@ -33,9 +32,9 @@
         <th scope="col">Đơn Vị Thi Công</th>
         <th scope="col">Đơn Vị Tư Vấn Giám Sát</th>
         <th scope="col">Đơn Vị Quản Lý</th>
-        <th scope="col">Tình Trạng Cầu</th>
         <th scope="col">Vị Trí Xây Dựng</th>
         <th scope="col">Quốc Lộ</th>
+        <th scope="col">Tình Trạng Cầu</th>
         <th scope="col">Ngày Tạo</th>
         <th scope="col">Ngày Cập Nhật</th>
 
@@ -79,14 +78,14 @@
                 <td><fmt:formatDate value="${cau.namHT}" pattern="yyyy"/></td>
                 <td><fmt:formatDate value="${cau.namKT}" pattern="yyyy"/></td>
                 <td>${cau.idChuDauTu.hoTen}</td>
-                <td>${cau.tongMucDauTu}</td>
-                <td>${cau.taiTrongTK}</td>
+                <td><fmt:formatNumber value="${cau.tongMucDauTu}" pattern="#,###"/> VND</td>
+                <td><fmt:formatNumber value="${cau.taiTrongTK}" pattern="#,###"/> tấn</td>
                 <td>${cau.idDonViThietKe.tenDonVi}</td>
                 <td>${cau.idDonViThiCong.tenDonVi}</td>
                 <td>${cau.idDonViGiamSat.tenDonVi}</td>
             </c:if>
 <%--            DonVi--%>
-            <td>${cau.idDonViQuanLy.tenDonVi}</td>
+            <td>${cau.idDonViQuanLy.name}</td>
 <%--            Vi Tri Null--%>
             <c:if test="${empty cau.idViTri.tenXa ||
              empty cau.idViTri.idHuyen.idTinh.tenTinh ||

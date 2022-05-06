@@ -11,7 +11,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
 <c:if test="${empty list}">
     <p class="alert alert-warning">
-        Vui Lòng Thêm Mới Dữ Liệu
+        Chưa Có Cầu Nào Cần Cập Nhật
     </p>
 </c:if>
 <c:if test="${!empty sessionScope.error}">
@@ -37,7 +37,9 @@
         <th scope="col">Vị Trí Xây Dựng</th>
         <th scope="col">Tình Trạng Cầu</th>
         <th scope="col">Ngày Cập Nhật</th>
-        <th></th>
+        <c:if test="${sessionScope.admin !=null}">
+            <th></th>
+        </c:if>
         <th></th>
         <th></th>
     </tr>
@@ -48,19 +50,19 @@
         <tr>
             <td>#${status.count}</td>
             <td>${cau.tenCau}</td>
-            <td>${cau.idDonViQuanLy.tenDonVi}</td>
+            <td>${cau.idDonViQuanLy.name}</td>
             <td>${cau.idQuocLo.tenQuocLo}</td>
             <c:if test="${empty cau.namXD || empty cau.namHT || empty cau.idViTri.tenXa || empty cau.idTinhTrang.tenTinhTrang}">
-            <td style="text-align: center;color: red">Chưa Cập Nhật</td>
-            <td style="color: red">Chưa Cập Nhật</td>
-            <td style="color: red">Chưa Cập Nhật</td>
+                <td style="text-align: center;color: red">Chưa Cập Nhật</td>
+                <td style="color: red">Chưa Cập Nhật</td>
+                <td style="color: red">Chưa Cập Nhật</td>
             </c:if>
-<%--            <%------%>
+                <%--            <%------%>
             <c:if test="${!empty cau.namXD || !empty cau.namHT || !empty cau.idViTri.tenXa || !empty cau.idTinhTrang.tenTinhTrang}">
-            <td style="text-align: center"><fmt:formatDate value="${cau.namXD}" pattern="yyyy"/>-
-                <fmt:formatDate value="${cau.namHT}" pattern="yyyy"/></td>
-            <td>${cau.idViTri.tenXa},${cau.idViTri.idHuyen.tenHuyen},${cau.idViTri.idHuyen.idTinh.tenTinh}</td>
-            <td>${cau.idTinhTrang.tenTinhTrang}</td>
+                <td style="text-align: center"><fmt:formatDate value="${cau.namXD}" pattern="yyyy"/>-
+                    <fmt:formatDate value="${cau.namHT}" pattern="yyyy"/></td>
+                <td>${cau.idViTri.tenXa},${cau.idViTri.idHuyen.tenHuyen},${cau.idViTri.idHuyen.idTinh.tenTinh}</td>
+                <td>${cau.idTinhTrang.tenTinhTrang}</td>
             </c:if>
             <td><fmt:formatDate value="${cau.dateUpdate}" pattern="dd/MM/yyyy hh:mm:ss"/></td>
             <td>
@@ -69,14 +71,16 @@
                     <button class="btn btn-primary">Sửa</button>
                 </form>
             </td>
+            <c:if test="${sessionScope.admin !=null}">
+                <td>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#c${cau.id}">Xóa</button>
+                </td>
+            </c:if>
             <td>
-                <button class="btn btn-danger" data-toggle="modal" data-target="#c${cau.id}">Xóa</button>
-            </td>
-            <td>
-            <form action="showDetailCau" method="post">
-                <input type="hidden" name="id" value="${cau.id}" >
-                <button class="btn btn-warning">Xem Chi Tiết</button>
-            </form>
+                <form action="showDetailCau" method="post">
+                    <input type="hidden" name="id" value="${cau.id}">
+                    <button class="btn btn-warning">Xem Chi Tiết</button>
+                </form>
             </td>
             <div id="c${cau.id}" class="modal" tabindex="-1">
                 <div class="modal-dialog">
